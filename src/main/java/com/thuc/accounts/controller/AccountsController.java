@@ -4,19 +4,22 @@ import com.thuc.accounts.constants.AccountsConstant;
 import com.thuc.accounts.dto.CustomerDto;
 import com.thuc.accounts.dto.ResponseDto;
 import com.thuc.accounts.service.IAccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path="/api",produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@Validated
 public class AccountsController {
     private final IAccountService accountService;
     @PostMapping("/create")
-    public ResponseEntity<?>  createAccount(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<?>  createAccount(@RequestBody @Valid CustomerDto customerDto) {
         accountService.createAccount(customerDto);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -39,7 +42,7 @@ public class AccountsController {
                         .build());
     }
     @PutMapping("/update")
-    public ResponseEntity<?> updateAccount(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<?> updateAccount(@RequestBody @Valid CustomerDto customerDto) {
         boolean isUpdated = accountService.updateAccount(customerDto);
         if(isUpdated) {
             return ResponseEntity
