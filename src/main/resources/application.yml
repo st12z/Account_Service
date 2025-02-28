@@ -12,5 +12,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/index.html
+    enable: true
+  show-actuator: false
 server:
   port: 8080
